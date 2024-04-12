@@ -1,0 +1,15 @@
+.banner {
+    width: 85vw;
+    height: 8vw;
+    border-radius: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2% auto 5% auto;
+    background-color: #777777;
+  }
+
+  .banner p {
+    font-size: 6vw;
+    color: #F0F0F0;
+  }
