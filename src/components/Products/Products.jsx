@@ -25,7 +25,7 @@ export default function Products () {
             <p>{row.name}</p>
             <p>{row.amount} шт.</p>
             <p>{row.price} &#x20bd;</p>
-            <button>-</button>
+            <button className={styles.product_btn}>X</button>
           </div>
         ))}
     </div>

@@ -6,7 +6,6 @@ export default function FeedbackSlider() {
   const style = {
     width: '55%',
     margin: '2% auto 5% auto',
-    backgroundColor: 'cadetblue',
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',

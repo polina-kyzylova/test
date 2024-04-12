@@ -15,7 +15,7 @@
     color: #777777;
 }
 
-button {
+.product_btn {
     width: 1.7vw;
     height: 1.7vw;
     border: none;
@@ -23,5 +23,5 @@ button {
     color: #fff;
     background-color: #777777;
     cursor: pointer;
-    justify-self: center;
+    justify-self: end;
 }
