@@ -45,7 +45,6 @@ export default function CartForm() {
     sentOrder();
   }, []);
 
-
   function showOrder() {
     if (!valid || !resSum) {
       validation();
@@ -66,7 +65,6 @@ export default function CartForm() {
       sentOrder(userCart);
   }
   }
-
 
   useEffect(() => {
     let sum = 0;
