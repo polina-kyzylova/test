@@ -1,11 +1,19 @@
 .form {
     width: 35%;
-    height: 35vh;
+    height: 60vh;
     border-radius: 15px;
     background-color: #D9D9D9;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    
+    /*position: sticky;
+    float: right;
+    top: 15%;*/
+
+    position: sticky;
+    top: 15%;
+    right: 0;
+    margin: 5% 5% 5% auto;
 }
 
 .form h2 {
@@ -14,15 +22,6 @@
     margin-bottom: 2%;
     font-size: 2vw;
     font-weight: 400;
-}
-
-.form_buttons {
-    width: 90%;
-    margin: 4% auto;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
 }
 
 .order {
@@ -35,4 +34,47 @@
     width: 11vw;
     height: 6vh;
     font-size: 1.6vw;
+}
+
+.result {
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.result p {
+    font-size: 1.5vw;
+    font-weight: 400;
+    color: #000;
+    margin-left: 2%;
+}
+
+
+.form_buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: auto auto 5% auto;
+}
+
+.val_btns {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.invalid_phone {
+    color: #E65659;
+    margin-top: 1%;
+    margin-left: 5%;
+}
+
+.no_items {
+    font-size: 1.5vw;
+    font-weight: 400;
+    color: #777777;
+    margin: auto;
 }

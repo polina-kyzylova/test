@@ -3,4 +3,5 @@ body {
   background-color: #222222;
   font-family: "Inter";
   font-weight: 400;
+  z-index: 0;
 }
