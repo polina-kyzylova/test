@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import IMask from 'imask';
 import {useRef, useEffect} from 'react';
 import styles from './PhoneInput.module.css';

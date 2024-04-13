@@ -14,6 +14,8 @@ export default function CartForm() {
   const globalCart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+  const url = 'http://o-complex.com:1337/order';
+
 
   const setPhone = (e) => {
     setTel(e.target.value);
@@ -24,6 +26,26 @@ export default function CartForm() {
     if (resSum === 0) document.getElementById('no_items').style.color = '#E65659';
   }
 
+  const sentOrder = async (userCart) => {
+    const res = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({
+        "phone": "79163452487",
+        "cart": userCart,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+  }) 
+    const data = await res.json();
+    console.log(data);
+  };
+
+  React.useEffect(() => {
+    sentOrder();
+  }, []);
+
+
   function showOrder() {
     if (!valid || !resSum) {
       validation();
@@ -33,8 +55,18 @@ export default function CartForm() {
         resultSum: resSum,
         resultPhone: tel,
       }));
-    }
+
+      let userCart = globalCart.map(x=> {
+        return {
+          "id": x.id,
+          "quantity": x.cartAmount,
+        }
+      });
+  
+      sentOrder(userCart);
   }
+  }
+
 
   useEffect(() => {
     let sum = 0;
