@@ -14,6 +14,9 @@
 
 2. Загрузить проект на ПК:
 <p>Выполнить в директории проекта</p>
+
+In the project directory, you can run:
+### `npm start`
 ### `npm install`
 <p>Для запуска в режиме разработки выполнить</p>
 ### `npm run start`
