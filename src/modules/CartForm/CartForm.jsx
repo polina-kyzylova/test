@@ -1,36 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import styles from './CartForm.module.css';
 import Products from '../../components/Products/Products';
-import PhoneInput from '../../components/PhoneInput/PhoneInput';
+import InputMask from 'react-input-mask'
 import { useSelector, useDispatch } from 'react-redux';
 import { createOrder } from '../../store/slices/orderReducer';
 
 
 
 export default function CartForm() {
-  const [tel, setTel] = useState('');
   const [valid, setValid] = useState(true);
+  const [userPhone, setUserPhone] = useState('   ');
   const [resSum, setResSum] = useState(0);
+
   const globalCart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-
   const url = 'http://o-complex.com:1337/order';
 
-
-  const setPhone = (e) => {
-    setTel(e.target.value);
-  }
-
-  const validation = () => {
-    (tel.length != 16) ? setValid(false) : setValid(true);
-    if (resSum === 0) document.getElementById('no_items').style.color = '#E65659';
-  }
-
-  const sentOrder = async (userCart) => {
+  
+  const sentOrder = async (userCart, cleanPhone) => {
     const res = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({
-        "phone": "79163452487",
+        "phone": cleanPhone,
         "cart": userCart,
       }),
       headers: {
@@ -41,30 +32,9 @@ export default function CartForm() {
     console.log(data);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     sentOrder();
   }, []);
-
-  function showOrder() {
-    if (!valid || !resSum) {
-      validation();
-    } else {
-      dispatch(createOrder({
-        active: true,
-        resultSum: resSum,
-        resultPhone: tel,
-      }));
-
-      let userCart = globalCart.map(x=> {
-        return {
-          "id": x.id,
-          "quantity": x.cartAmount,
-        }
-      });
-  
-      sentOrder(userCart);
-  }
-  }
 
   useEffect(() => {
     let sum = 0;
@@ -73,6 +43,55 @@ export default function CartForm() {
     })
     setResSum(sum);
   }, [globalCart]);
+  
+
+  function validPhone() {
+    let cleanPhone = userPhone.replace(/\D+/g, '');
+    if (cleanPhone.length != 11) {
+      setValid(false);
+      return false;
+    }
+    else {
+      setValid(true);
+      return true;
+    }
+  }
+
+  function validCart() {
+    if (resSum) return true;
+    else {
+      document.getElementById('no_items').style.color = '#E65659';
+      return false;
+    }
+  }
+  
+  function validation() {
+    if (validPhone() * validCart()) return true
+    else return false
+  }
+  
+  function showOrder() {
+    if (validation()) {
+      dispatch(createOrder({
+        active: true,
+        resultSum: resSum,
+        resultPhone: userPhone,
+      }));
+
+      let userCart = globalCart.map(x=> {
+        return {
+          "id": x.id,
+          "quantity": x.cartAmount,
+        }
+      });
+
+      let cleanPhone = userPhone.replace(/\D+/g, '');
+  
+      sentOrder(userCart, cleanPhone);
+      setUserPhone('  ');
+    }
+  }
+
 
 
   return (
@@ -88,7 +107,14 @@ export default function CartForm() {
 
         <div className={styles.form_buttons}>
           <div className={styles.val_btns}>
-            <PhoneInput setPhone={setPhone} valid={valid} />
+              <InputMask
+                className={styles.ph_input} 
+                id='inp'
+                mask="+7(999)999-99-99"
+                maskChar=" "
+                value={userPhone}
+                onChange={e => setUserPhone(e.target.value)}
+              />
             <button className={styles.order} onClick={() => showOrder()}>Заказать</button>
           </div>
 

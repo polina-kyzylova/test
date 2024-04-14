@@ -1,35 +1,22 @@
 import React from 'react';
-import IMask from 'imask';
-import {useRef, useEffect, useState} from 'react';
+import {useState} from 'react';
 import styles from './PhoneInput.module.css';
-
 import InputMask from 'react-input-mask'
+import { useEffect } from 'react';
 
 
 
-
-export default function PhoneInput({setPhone, valid}) {
-  //const ref = useRef(null);
-
+export default function PhoneInput({valid, setResultPhone}) {
   const [userPhone, setUserPhone] = useState('');
-  
-  /*
+
   useEffect(() => {
-    const element = ref.current;
-    const el = document.getElementById(element.id);
-    const maskOptions = { mask: '+{7}(000)000-00-00'};
-    const mask = IMask(el, maskOptions);
-    mask.value = '+7(___)___-__-__';
-
-    if (!valid) el.style.border = 'solid #E65659 1px';
-    else el.style.border = 'none';
+    setResultPhone(userPhone);
   }, [valid]);
-  */
-
 
   return (
       <InputMask
         className={styles.ph_input} 
+        id='inp'
         mask="+7(999)999-99-99"
         maskChar=" "
         value={userPhone}
@@ -39,4 +26,18 @@ export default function PhoneInput({setPhone, valid}) {
 }
 
 
-/* <input ref={ref} id='inp' type="text" className={styles.ph_input} onChange={setPhone}></input> */
+
+
+  /*
+  useEffect(() => {
+    if (userPhone.length != 16) {
+      document.getElementById('inp').style.border = 'solid #E65659 1px';
+      setValid(false);
+    }
+    else {
+      document.getElementById('inp').style.border = 'none';
+      setValid(true);
+    }
+  }, []);
+  */
+  

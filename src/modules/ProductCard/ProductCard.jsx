@@ -2,13 +2,14 @@ import React from 'react';
 import { useEffect, useState } from "react";
 import styles from './ProductCard.module.css';
 import { setCart, removeCart, updateCart } from '../../store/slices/cartReducer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 export default function ProductCard({id, image, name, describtion, price}) {
   const [inCart, setInCart] = useState(false);
   const [amount, setAmount] = useState(0);
   const dispatch = useDispatch();
+  const userOrder = useSelector((state) => state.order);
 
   useEffect(() => {
     dispatch(updateCart({
@@ -17,6 +18,10 @@ export default function ProductCard({id, image, name, describtion, price}) {
       cartPrice: price * amount,
     }));
   }, [amount]);
+
+  useEffect(() => {
+    if (!userOrder.active) setInCart(false);
+  }, [userOrder.active]);
 
   const MinAmount = () => {
     if (amount > 1) {
